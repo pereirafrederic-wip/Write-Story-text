@@ -1,0 +1,50 @@
+.story{
+display: flex;
+width: 100%;
+align-items: center;
+}
+
+.chapitre{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 10px;
+  h1 {
+    align-content: center;
+  }
+}
+
+.elements {
+  display: flex;
+  flex-direction: column;
+  align-content: flex-start;
+  margin-left: 5px;
+
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: flex-start;
+  width: 100%;
+
+  .element{
+    display: flex;
+    width: 100%;
+    margin-top: 10px;
+
+    & .sans {
+      margin-left: 25px;
+      margin-bottom: 20px;
+    }
+  }
+  .personnage{
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+
+  }
+  .content{
+     display: flex;
+    margin-left: 5px;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+}

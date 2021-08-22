@@ -1,16 +1,16 @@
 import React from 'react';
 
-interface IPersonnage {
-  index: number;
-  nom : string;
+export interface IPersonnage {
+  ind: number;
+  nom: string;
 }
 
-interface IPersonnages {
+export interface IPersonnages {
   indexActif: number;
-  personnages: Array<IPersonnage> ;
+  personnages: Array<IPersonnage>;
 }
 
-export const PersonnageContext = React.createContext({ 
-  indexActif : 0,
+export const PersonnageContext = React.createContext({
+  indexActif: 0,
   personnages: []
-} );
+});

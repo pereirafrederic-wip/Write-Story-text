@@ -1,23 +1,24 @@
 import React from 'react';
 
-
-interface IText {
-  index: number;
-  personnageIndex : number;
-  content : string;
+export interface IText {
+  ind: number;
+  personnageIndex: number;
+  content: string;
 }
 
-interface IChapitre {
-  index: number;
-  element : Array<IText>;
+export interface IChapitre {
+  ind: number;
+  element: Array<IText>;
 }
 
 interface Istory {
   indexActif: number;
-  chapitres: Array<IChapitre> ;
+  chapitres: Array<IChapitre>;
 }
 
-export const StoryContext = React.createContext({ 
-  indexActif : 0,
+const el: Istory = {
+  indexActif: 0,
   chapitres: []
-} );
+};
+
+export const StoryContext = React.createContext(el);
