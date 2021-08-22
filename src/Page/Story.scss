@@ -48,3 +48,21 @@ align-items: center;
     justify-content: flex-start;
   }
 }
+
+.form{
+  margin: 20px;
+
+  form{
+    display:flex;
+    flex-direction: column;
+    .row {
+      margin-top: 10px;
+      flex-direction: row;
+    }
+
+    textarea {
+      min-height: 100px;
+      width: 100%;
+    }
+  }
+}

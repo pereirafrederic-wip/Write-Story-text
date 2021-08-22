@@ -2,7 +2,7 @@ import './styles.scss';
 import { PersonnageContext } from './Context/PersonnageContext';
 import { StoryContext } from './Context/StoryContext';
 import Story from './Page/Story';
-
+import FormStory from './Page/FormStory';
 const initialStoryContext = {
   indexActif: 1,
   chapitres: [
@@ -44,6 +44,7 @@ const App = () => {
       <PersonnageContext.Provider value={initialPersonnageContext}>
         <StoryContext.Provider value={initialStoryContext}>
           <Story />
+          <FormStory />
         </StoryContext.Provider>
       </PersonnageContext.Provider>
     </div>

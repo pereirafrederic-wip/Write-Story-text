@@ -28,8 +28,8 @@ const Chapitre = ({ chapitre }) => {
     <div className={'chapitre'}>
       <h1> {`Chapitre numero ${chapitre.ind}`}</h1>
       <div className={'elements'}>
-        {chapitre.element?.map((el: IText) => (
-          <div className={'element'}>
+        {chapitre.element?.map((el: IText, key) => (
+          <div className={'element'} key={key}>
             {domPerso(el.personnageIndex)}
             <div className={`content ${el.personnageIndex ? 'avec' : 'sans'}`}>
               {el.content}
