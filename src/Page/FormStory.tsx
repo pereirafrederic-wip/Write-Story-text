@@ -6,8 +6,19 @@ import { UserOutlined, FileTextOutlined } from '@ant-design/icons';
 
 export default function App() {
   const { TextArea } = Input;
-  const { register, handleSubmit } = useForm();
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors }
+  } = useForm();
   const onSubmit = (data) => console.log(data);
+
+  const onReset = (e) => {
+    reset();
+    console.log(e, e.target);
+    //e.target.reset(); // reset after form submit
+  };
 
   return (
     <div className={'form'}>
@@ -21,15 +32,21 @@ export default function App() {
         <br />
         <TextArea
           placeholder="texte"
-          autoSize={{ minRows: 3, maxRows: 5 }}
+          autoSize={{ minRows: 3, maxRows: 10 }}
           {...register('content', { required: true, maxLength: 200 })}
         />
+        {errors.contentd && <p>This is required</p>}
         <br />
         <div className={'row'}>
           <Button htmlType="submit" type={'primary'}>
             {'enregistrer'}
           </Button>
-          <Button htmlType="reset" type={'secondary'}>
+          <Button
+            htmlType="reset"
+            type={'primary'}
+            danger
+            onClick={(e) => onReset(e)}
+          >
             {'annuler'}
           </Button>
         </div>
