@@ -1,10 +1,10 @@
-import { useStoryValue, IChapitre } from '../Context/StoryContext';
+import { useStoryValues, IChapitre } from '../Context/StoryContext';
 import Chapitre from './Chapitre';
 
 import './Story.scss';
 
 const Story = () => {
-  const { storyValues } = useStoryValue();
+  const { storyValues } = useStoryValues();
 
   const { indexActif, chapitres } = storyValues;
 

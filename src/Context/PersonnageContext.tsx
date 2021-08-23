@@ -11,13 +11,13 @@ export interface IPersonnages {
   personnages: Array<IPersonnage>;
 }
 
-const PersonnageContext = React.createContext({
-  indexActif: 0,
-  personnages: []
-});
+const PersonnageContext = React.createContext(null);
 
 export const PersonnageValueProvider = ({
-  value = null,
+  value = {
+    indexActif: 0,
+    personnages: []
+  },
   children
 }): IProvider<IPersonnages> => {
   const [personnageValues, setPersonnageValues] = useState(value);
@@ -32,7 +32,7 @@ export const PersonnageValueProvider = ({
   );
 };
 
-export const usePersonnageValue = () => {
+export const usePersonnageValues = () => {
   const context = useContext(PersonnageContext);
   if (!context)
     throw new Error(

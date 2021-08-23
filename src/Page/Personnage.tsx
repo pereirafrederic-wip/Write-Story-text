@@ -1,15 +1,13 @@
-import { IPersonnage, usePersonnageValue } from '../Context/PersonnageContext';
+import { IPersonnage, usePersonnageValues } from '../Context/PersonnageContext';
 
 const Personnage = ({ personnageIndex }: Number) => {
-  const { personnageValues } = usePersonnageValue();
-  const { personnages } = personnageValues;
+  const { personnageValues } = usePersonnageValues();
 
-  const elPersonnage = personnages.filter(
+  console.log('personnageValues.personnages', personnageValues.personnages);
+  const elPersonnage = personnageValues.personnages.filter(
     (perso: IPersonnage) => perso.ind === personnageIndex
   )[0];
-  return (
-    <div className={'personnage'}>{elPersonnage && elPersonnage.nom} :</div>
-  );
+  return <div className={'personnage'}>{elPersonnage?.nom} :</div>;
 };
 
 export default Personnage;

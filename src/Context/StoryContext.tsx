@@ -17,15 +17,13 @@ interface IStory {
   chapitres: Array<IChapitre>;
 }
 
-const el: IStory = {
-  indexActif: 0,
-  chapitres: []
-};
-
-const StoryContext = React.createContext(el);
+const StoryContext = React.createContext(null);
 
 export const StoryValueProvider = ({
-  value = null,
+  value = {
+    indexActif: 0,
+    chapitres: []
+  },
   children = null
 }): IProvider<IStory> => {
   const [storyValues, setStoryValues] = useState(value);
@@ -39,7 +37,7 @@ export const StoryValueProvider = ({
   );
 };
 
-export const useStoryValue = () => {
+export const useStoryValues = () => {
   const context = useContext(StoryContext);
   if (!context)
     throw new Error('useStoryValue must be used with a StoryValueProvider');
