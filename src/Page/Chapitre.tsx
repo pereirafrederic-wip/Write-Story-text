@@ -6,7 +6,7 @@ import './Story.scss';
 const Chapitre = ({ chapitre }) => {
   return (
     <div className={'chapitre'}>
-      <h1> {`Chapitre numero ${chapitre.ind}`}</h1>
+      <h1> {`Chapitre numero ${chapitre.ind}: ${chapitre.nom}`}</h1>
       <div className={'elements'}>
         {chapitre.elements?.map((el: IText, key) => (
           <div className={'element'} key={key}>

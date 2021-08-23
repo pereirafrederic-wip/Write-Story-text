@@ -6,6 +6,10 @@ import { UserOutlined } from '@ant-design/icons';
 import { usePersonnageValues } from '../Context/PersonnageContext';
 import { useStoryValues } from '../Context/StoryContext';
 
+import { Select } from 'antd';
+
+const { Option } = Select;
+
 export default () => {
   const { TextArea } = Input;
   const {
@@ -19,26 +23,38 @@ export default () => {
   const { storyValues, setStoryValues } = useStoryValues();
   const { personnageValues, setPersonnageValues } = usePersonnageValues();
 
+  const domOptionsPerso = personnageValues.personnages.map((element, key) => (
+    <Option key={key} value={element.ind}>
+      {element.nom}
+    </Option>
+  ));
+
   const onSubmit = (data) => {
-    const { personnage, content } = data;
+    const { personnage, personnage_id, content } = data;
 
     let indicePerso;
-    if (!!personnage) {
-      indicePerso = Math.floor(Math.random() * 100);
 
-      const updatePersonnageList = [
-        ...personnageValues.personnages,
-        {
-          ind: indicePerso,
-          nom: personnage
-        }
-      ];
-      setPersonnageValues({
-        ...personnageValues,
-        personnages: updatePersonnageList
-      });
+    console.log('data', data);
+
+    if (!!personnage_id) {
+      indicePerso = personnage_id;
+    } else {
+      if (!!personnage) {
+        indicePerso = Math.floor(Math.random() * 100);
+
+        const updatePersonnageList = [
+          ...personnageValues.personnages,
+          {
+            ind: indicePerso,
+            nom: personnage
+          }
+        ];
+        setPersonnageValues({
+          ...personnageValues,
+          personnages: updatePersonnageList
+        });
+      }
     }
-
     const indiceElement = Math.floor(Math.random() * 100);
 
     const indexChapitre = storyValues.chapitres.findIndex(
@@ -79,8 +95,12 @@ export default () => {
     //e.target.reset(); // reset after form submit
   };
 
-  const handleChange = (event: any) => {
+  const handleChangeContent = (event: any) => {
     setValue('content', event.target.value);
+  };
+  const handleChangePersonnage = (indexOption: any) => {
+    setValue('personnage', '');
+    setValue('personnage_id', indexOption);
   };
 
   return (
@@ -88,18 +108,30 @@ export default () => {
       {storyValues && JSON.stringify(storyValues)}
       {personnageValues && JSON.stringify(personnageValues)}
       <form onSubmit={handleSubmit(onSubmit)}>
-        <Input
-          size="large"
-          placeholder="nom Personnage"
-          prefix={<UserOutlined />}
-          {...register('personnage', { required: false, maxLength: 20 })}
-        />
+        <div className={'row'}>
+          <Input
+            size="large"
+            placeholder="nom Personnage"
+            allowClear
+            prefix={<UserOutlined />}
+            {...register('personnage', { required: false, maxLength: 20 })}
+          />
+          <Select
+            defaultValue=""
+            style={{ width: '100%' }}
+            allowClear
+            onChange={handleChangePersonnage}
+          >
+            {domOptionsPerso}
+          </Select>
+        </div>
         {errors.personnage && <p>This length max is 20</p>}
         <br />
         <TextArea
+          allowClear
           placeholder="texte"
           {...register('content', { required: true, maxLength: 200 })}
-          onChange={handleChange}
+          onChange={handleChangeContent}
         />
         {errors.content && <p>This is required and max 200</p>}
         <br />

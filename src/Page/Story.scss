@@ -1,5 +1,6 @@
 .story{
 display: flex;
+flex-direction: column;
 width: 100%;
 align-items: center;
 }
@@ -65,4 +66,12 @@ align-items: center;
       width: 100%;
     }
   }
+}
+
+
+.nav{
+  display: flex;
+  flex-direction: row;
+
+  justify-content: space-around;
 }

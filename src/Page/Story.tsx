@@ -1,6 +1,6 @@
 import { useStoryValues, IChapitre } from '../Context/StoryContext';
 import Chapitre from './Chapitre';
-
+import FormStory from './FormStory';
 import './Story.scss';
 
 const Story = () => {
@@ -18,7 +18,9 @@ const Story = () => {
 
   return (
     <div className={'story'}>
+      {indexActif}
       <Chapitre chapitre={element} />
+      <FormStory />
     </div>
   );
 };
