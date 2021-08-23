@@ -1,6 +1,6 @@
 import './styles.scss';
-import { PersonnageContext } from './Context/PersonnageContext';
-import { StoryContext } from './Context/StoryContext';
+import { PersonnageValueProvider } from './Context/PersonnageContext';
+import { StoryValueProvider } from './Context/StoryContext';
 import Story from './Page/Story';
 import FormStory from './Page/FormStory';
 const initialStoryContext = {
@@ -41,12 +41,12 @@ const initialPersonnageContext = {
 const App = () => {
   return (
     <div className="App">
-      <PersonnageContext.Provider value={initialPersonnageContext}>
-        <StoryContext.Provider value={initialStoryContext}>
+      <PersonnageValueProvider value={initialPersonnageContext}>
+        <StoryValueProvider value={initialStoryContext}>
           <Story />
           <FormStory />
-        </StoryContext.Provider>
-      </PersonnageContext.Provider>
+        </StoryValueProvider>
+      </PersonnageValueProvider>
     </div>
   );
 };

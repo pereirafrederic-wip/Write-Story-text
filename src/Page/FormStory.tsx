@@ -2,7 +2,7 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { Button } from 'antd';
 import { Input } from 'antd';
-import { UserOutlined, FileTextOutlined } from '@ant-design/icons';
+import { UserOutlined } from '@ant-design/icons';
 
 export default function App() {
   const { TextArea } = Input;
@@ -15,7 +15,6 @@ export default function App() {
   const onSubmit = (data) => console.log(data);
 
   const onReset = (e) => {
-    reset();
     console.log(e, e.target);
     //e.target.reset(); // reset after form submit
   };
@@ -42,7 +41,7 @@ export default function App() {
             {'enregistrer'}
           </Button>
           <Button
-            htmlType="reset"
+            htmlType="button"
             type={'primary'}
             danger
             onClick={(e) => onReset(e)}

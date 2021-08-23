@@ -1,27 +1,7 @@
 import { IText } from '../Context/StoryContext';
-import {
-  PersonnageContext,
-  IPersonnages,
-  IPersonnage
-} from '../Context/PersonnageContext';
+import Personnage from './Personnage';
+
 import './Story.scss';
-
-const domPerso = (personnageIndex: Number) => {
-  return (
-    <PersonnageContext.Consumer>
-      {({ indexActif, personnages }) => {
-        if (!personnageIndex) {
-          return;
-        }
-        const elPersonnage = personnages.filter(
-          (perso: IPersonnage) => perso.ind === personnageIndex
-        )[0];
-
-        return <div className={'personnage'}>{elPersonnage.nom} :</div>;
-      }}
-    </PersonnageContext.Consumer>
-  );
-};
 
 const Chapitre = ({ chapitre }) => {
   return (
@@ -30,7 +10,9 @@ const Chapitre = ({ chapitre }) => {
       <div className={'elements'}>
         {chapitre.element?.map((el: IText, key) => (
           <div className={'element'} key={key}>
-            {domPerso(el.personnageIndex)}
+            {!!el.personnageIndex && (
+              <Personnage personnageIndex={el.personnageIndex} />
+            )}
             <div className={`content ${el.personnageIndex ? 'avec' : 'sans'}`}>
               {el.content}
             </div>
