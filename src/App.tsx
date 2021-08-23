@@ -8,8 +8,7 @@ const initialStoryContext = {
   chapitres: [
     {
       ind: 1,
-
-      element: [
+      elements: [
         {
           ind: 1,
           personnageIndex: 0,

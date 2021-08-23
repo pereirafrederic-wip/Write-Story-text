@@ -9,7 +9,7 @@ export interface IText {
 
 export interface IChapitre {
   ind: number;
-  element: Array<IText>;
+  elements: Array<IText>;
 }
 
 interface IStory {

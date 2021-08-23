@@ -8,7 +8,7 @@ const Chapitre = ({ chapitre }) => {
     <div className={'chapitre'}>
       <h1> {`Chapitre numero ${chapitre.ind}`}</h1>
       <div className={'elements'}>
-        {chapitre.element?.map((el: IText, key) => (
+        {chapitre.elements?.map((el: IText, key) => (
           <div className={'element'} key={key}>
             {!!el.personnageIndex && (
               <Personnage personnageIndex={el.personnageIndex} />

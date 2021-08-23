@@ -10,6 +10,7 @@ export default () => {
   const { TextArea } = Input;
   const {
     register,
+    setValue,
     handleSubmit,
     reset,
     formState: { errors }
@@ -20,54 +21,66 @@ export default () => {
 
   const onSubmit = (data) => {
     const { personnage, content } = data;
-    console.group('submit');
-    console.log('personnage', personnage);
-    console.log('content', content);
-    console.log('personnageValues', personnageValues);
-    console.log('personnageValues?.personnages', personnageValues?.personnages);
-    console.log('storyValues', storyValues);
-    console.log('storyValues?.chapitres', storyValues?.chapitres);
-    console.groupEnd();
 
-    const indicePerso = Math.floor(Math.random() * 100);
-    console.log('personnageValues?.personnages', personnageValues?.personnages);
-    debugger;
-    const newList = [
-      ...personnageValues.personnages,
-      {
-        ind: indicePerso,
-        nom: personnage
-      }
-    ];
-    console.log('newList', newList);
-    setPersonnageValues({
-      ...personnageValues,
-      personnages: newList
-    });
+    let indicePerso;
+    if (!!personnage) {
+      indicePerso = Math.floor(Math.random() * 100);
 
-    const indiceStory = Math.floor(Math.random() * 100);
-    const indiceChapitre = Math.floor(Math.random() * 100);
-    const newChapitre = [
-      ...storyValues.chapitres,
-      {
-        ind: indiceStory,
-        element: {
-          ind: indiceChapitre,
-          personnageIndex: indicePerso,
+      const updatePersonnageList = [
+        ...personnageValues.personnages,
+        {
+          ind: indicePerso,
+          nom: personnage
+        }
+      ];
+      setPersonnageValues({
+        ...personnageValues,
+        personnages: updatePersonnageList
+      });
+    }
+
+    const indiceElement = Math.floor(Math.random() * 100);
+
+    const indexChapitre = storyValues.chapitres.findIndex(
+      (e) => e.ind === storyValues.indexActif
+    );
+    console.log('indexChapitre', indexChapitre);
+    if (indexChapitre >= 0) {
+      const chapitreTouve = storyValues.chapitres[indexChapitre];
+
+      const updateElementList = [
+        ...storyValues.chapitres[indexChapitre].elements,
+        {
+          ind: indiceElement,
+          personnageIndex: indicePerso ? indicePerso : null,
           content: content
         }
-      }
-    ];
-    console.log('newList', newChapitre);
-    setStoryValues({
-      ...storyValues,
-      chapitres: newChapitre
-    });
+      ];
+      console.log('updateElementList', updateElementList);
+
+      storyValues.chapitres.splice(indexChapitre, 1);
+      const updateChapitreList = [
+        ...storyValues.chapitres,
+        {
+          ...chapitreTouve,
+          elements: updateElementList
+        }
+      ];
+      console.log('updateChapitreList', updateChapitreList);
+      setStoryValues({
+        ...storyValues,
+        chapitres: updateChapitreList
+      });
+    }
   };
 
   const onReset = (e) => {
     console.log(e, e.target);
     //e.target.reset(); // reset after form submit
+  };
+
+  const handleChange = (event: any) => {
+    setValue('content', event.target.value);
   };
 
   return (
@@ -81,13 +94,14 @@ export default () => {
           prefix={<UserOutlined />}
           {...register('personnage', { required: false, maxLength: 20 })}
         />
+        {errors.personnage && <p>This length max is 20</p>}
         <br />
         <TextArea
           placeholder="texte"
-          autoSize={{ minRows: 3, maxRows: 10 }}
           {...register('content', { required: true, maxLength: 200 })}
+          onChange={handleChange}
         />
-        {errors.contentd && <p>This is required</p>}
+        {errors.content && <p>This is required and max 200</p>}
         <br />
         <div className={'row'}>
           <Button htmlType="submit" type={'primary'}>
