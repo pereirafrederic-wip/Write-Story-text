@@ -5,6 +5,7 @@ import { Input } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import { usePersonnageValues } from '../Context/PersonnageContext';
 import { useStoryValues } from '../Context/StoryContext';
+import { store } from '../Firebase';
 
 import { Select } from 'antd';
 
@@ -42,17 +43,20 @@ export default () => {
       if (!!personnage) {
         indicePerso = Math.floor(Math.random() * 100);
 
+        const newPersonnage = {
+          ind: indicePerso,
+          nom: personnage
+        };
+
         const updatePersonnageList = [
           ...personnageValues.personnages,
-          {
-            ind: indicePerso,
-            nom: personnage
-          }
+          newPersonnage
         ];
         setPersonnageValues({
           ...personnageValues,
           personnages: updatePersonnageList
         });
+        store.collection('Personnages').add(newPersonnage);
       }
     }
     const indiceElement = Math.floor(Math.random() * 100);
@@ -64,13 +68,15 @@ export default () => {
     if (indexChapitre >= 0) {
       const chapitreTouve = storyValues.chapitres[indexChapitre];
 
+      const newChapitre = {
+        ind: indiceElement,
+        personnageIndex: indicePerso ? indicePerso : null,
+        content: content
+      };
+
       const updateElementList = [
         ...storyValues.chapitres[indexChapitre].elements,
-        {
-          ind: indiceElement,
-          personnageIndex: indicePerso ? indicePerso : null,
-          content: content
-        }
+        newChapitre
       ];
       console.log('updateElementList', updateElementList);
 
@@ -87,6 +93,7 @@ export default () => {
         ...storyValues,
         chapitres: updateChapitreList
       });
+      store.collection('Chapitres').add(newChapitre);
     }
   };
 

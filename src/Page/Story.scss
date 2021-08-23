@@ -74,4 +74,9 @@ align-items: center;
   flex-direction: row;
 
   justify-content: space-around;
+
+  .nav-chapitre{
+    display: flex;
+    flex-direction: column;
+  }
 }

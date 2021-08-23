@@ -1,6 +1,7 @@
 //1. import the dependencies
 import firebase from 'firebase';
 import 'firebase/auth';
+import Axios from 'axios';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyAF-GBA5qKD2lm7JrHAd5HmGsbA9cQAkwA',
@@ -15,7 +16,8 @@ const firebaseConfig = {
 const firebaseApp = firebase.initializeApp(firebaseConfig);
 
 const firebaseAuth = firebase.auth();
-const db = firebase.firestore();
+const store = firebase.firestore();
+const db = firebase.database();
 
 //3. export it for use
-export { firebaseApp, db, firebaseAuth };
+export { firebaseApp, db, store, firebaseAuth, Axios };

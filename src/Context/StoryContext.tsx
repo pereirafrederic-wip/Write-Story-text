@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { IProvider, IValue } from './InterfaceContext';
-import { db } from '../Firebase';
+import { store } from '../Firebase';
 
 export interface IText {
   ind: number;
@@ -34,9 +34,10 @@ export const StoryValueProvider = ({
 
   const valueInitiale: IValue<IStory> = { storyValues, setStoryValues };
 
-  const fetchPersonnages = async () => {
-    const response = db.collection('Chapitres');
+  const fetchChapitres = async () => {
+    const response = store.collection('Chapitres');
     const data = await response.get();
+    console.log('fetchChapitres', data);
     setStoryValues({
       ...storyValues,
       chapitres: [...storyValues.chapitres, ...data.docs]
@@ -44,8 +45,8 @@ export const StoryValueProvider = ({
   };
 
   useEffect(() => {
-    fetchPersonnages();
-  }, [storyValues]);
+    fetchChapitres();
+  }, []);
 
   return (
     <StoryContext.Provider value={valueInitiale}>

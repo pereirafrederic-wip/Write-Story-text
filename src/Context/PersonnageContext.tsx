@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { IProvider, IValue } from './InterfaceContext';
-import { db } from '../Firebase';
+import { store } from '../Firebase';
 
 export interface IPersonnage {
   ind: number;
@@ -28,8 +28,9 @@ export const PersonnageValueProvider = ({
   };
 
   const fetchPersonnages = async () => {
-    const response = db.collection('Personnages');
+    const response = store.collection('Personnages');
     const data = await response.get();
+
     setPersonnageValues({
       ...personnageValues,
       personnages: [...personnageValues.personnages, ...data.docs]
@@ -38,7 +39,7 @@ export const PersonnageValueProvider = ({
 
   useEffect(() => {
     fetchPersonnages();
-  }, [personnageValues]);
+  }, []);
   return (
     <PersonnageContext.Provider value={valueInitiale}>
       {children}
